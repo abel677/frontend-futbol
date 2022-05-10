@@ -13,6 +13,7 @@ import { User } from '../p-usuario/user.model';
 export class EditUserComponent implements OnInit {
 
   formEdit:FormGroup;
+  
   rols:any;
   id:number;
   name:string;
@@ -47,6 +48,7 @@ export class EditUserComponent implements OnInit {
         data.forEach(element => {
           this.url = element.image;
           this.name = element.name;
+
           this.formEdit.patchValue({
             name:element.name,
             email:element.email,

@@ -15,19 +15,42 @@ export class PUsuarioComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, private router: Router) { }
   usuarios: any;
   imagenPath: any;
+  active:any;
+  userActive:any;
 
   ngOnInit(): void {
     this.getUsers();
   }
+  editActive(id:number){
+    if(this.active == 1){
+      // this.userActive = "activo";
+      this.active = 0
+    }else{
+      // this.userActive = "inactivo";
+      this.active = 1
+    }
+    this.usuarioService.editAcative(id,this.active).subscribe({
+      next:(data)=>{
+        this.active = data.active;
+        
+      },
+      error:(err)=>console.log(err)
+    });
+    this.getUsers();
+  }
+
 
   getUsers() {
     this.usuarioService.getUsers().subscribe({
-      next: (s) =>this.usuarios = s,
+      next: (s) => {
+        this.usuarios = s;
+        
+      },
       error: (e) => console.log(e)
     });
   }
   
-  udelete() {
+  udelete(id:number) {
     Swal.fire({
       title: 'Estás seguro?',
       text: "Deseas eliminar este registro!",
@@ -38,7 +61,7 @@ export class PUsuarioComponent implements OnInit {
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuarioService.deleteUser(1).subscribe({
+        this.usuarioService.deleteUser(id).subscribe({
           next: (s) => {
             Swal.fire(
               'Eliminado!',

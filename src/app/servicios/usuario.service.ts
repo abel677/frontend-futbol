@@ -53,9 +53,21 @@ export class UsuarioService {
     .set('email',form.email)
     .set('password',form.password)
     .set('rol_id',form.rol_id)
-    console.log(params);
+    // console.log(params);
     
     return this.http.put(`http://127.0.0.1:8000/api/user/e`, params,{headers:header});
+  }
+  editAcative(id:number,active:number){
+
+    const header = new HttpHeaders()
+    .set('Authorization',`Bearer ${localStorage.getItem('token')}`);
+
+    let params = new HttpParams()
+    .set('id',id)
+    .set('active',active)
+
+    return this.http.put<any>(`http://127.0.0.1:8000/api/user/active`,params,{headers:header});
+    
   }
 
 
