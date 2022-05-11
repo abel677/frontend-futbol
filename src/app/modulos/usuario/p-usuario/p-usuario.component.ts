@@ -15,24 +15,18 @@ export class PUsuarioComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, private router: Router) { }
   usuarios: any;
   imagenPath: any;
-  active:any;
   userActive:any;
 
   ngOnInit(): void {
     this.getUsers();
   }
-  editActive(id:number){
-    if(this.active == 1){
-      // this.userActive = "activo";
-      this.active = 0
-    }else{
-      // this.userActive = "inactivo";
-      this.active = 1
-    }
-    this.usuarioService.editAcative(id,this.active).subscribe({
+  editActive(id:number,active:number){
+    if(active)  active = 0
+    else active = 1
+   
+    this.usuarioService.editAcative(id,active).subscribe({
       next:(data)=>{
-        this.active = data.active;
-        
+        console.log(data); 
       },
       error:(err)=>console.log(err)
     });
@@ -44,7 +38,16 @@ export class PUsuarioComponent implements OnInit {
     this.usuarioService.getUsers().subscribe({
       next: (s) => {
         this.usuarios = s;
-        
+        // s.forEach(element => {
+        //   console.log(element);
+        //   if(element.active == 1){
+        //     this.userActive = "activo";
+        //   }else{
+        //     this.userActive = "inactivo";
+        //   }
+          
+          
+        // });
       },
       error: (e) => console.log(e)
     });
@@ -76,14 +79,15 @@ export class PUsuarioComponent implements OnInit {
               'error'
             )
           }
-        })
+        });
 
       }
-    })
-
-
+    });
+    this.getUsers();
 
   }
+  
+  
 
   edit(id: number) {
     this.router.navigate([`/principal/usuario/editar/${id}`]);

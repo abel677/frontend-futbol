@@ -23,10 +23,11 @@
                             <td>{{ usuario.id }}</td>
                             <td>{{ usuario.name }}</td>
                             <td>{{ usuario.email }}</td>
-                            <td><span (click)="editActive(usuario.id)" class="badge bg-success cursor-pointer">{{ usuario.active }}</span></td>
+                            <td><span (click)="editActive(usuario.id,usuario.active)" class="badge p-2 px-3 bg-success cursor-pointer">{{ usuario.active }}</span></td>
                             <td> 
-                                <i (click)="udelete(usuario.id)" class="text-success ion ion-ios-trash me-2 btn btn-danger"></i>
+                                <i (click)="udelete(usuario.id)" class="ion ion-ios-trash me-2 btn btn-danger"></i>
                                 <i (click)="edit(usuario.id)" class="ion ion-md-create me-2 btn btn-info"></i>
+                                <span  class="ion me-2 btn btn-primary">mostrar</span>
                             <td> 
                       </tr>
                     </tbody>
